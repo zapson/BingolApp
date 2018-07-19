@@ -1,0 +1,264 @@
+/** Importação da fonte Hamster */
+@font-face {
+    font-family: Hamster;
+    src: url(../fonts/hamster.otf);
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url(../fonts/Roboto-Bold.ttf);
+}
+
+
+/**
+* Css principal para bingol.js
+*/
+
+/**
+ * Paleta de cores
+ */
+:root {
+  --principal: #00CCCC;
+  --secundaria: #00FFFF;
+  --terciaria: #009999;
+  --grey: #e9e9e9;
+}
+
+html, 
+body {
+    height: 100%;
+}
+
+body {
+	background-color: var(--principal) !important;
+	font-family: Roboto, 'sans-serif';
+}
+
+
+.titulo {
+	font-family: Hamster, 'serif';
+	font-size: 32vw;
+	margin-top: 50px;
+	text-align: center;
+	color:#FFF;
+}
+
+.button {
+	display: block;
+	text-transform: uppercase;
+	font-weight: 400;
+	width: 16rem;
+	background-color: #FFF;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: .375rem .23rem;
+    font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .30rem;
+	font-family: Roboto, 'Trebuchet MS', 'sans-serif';
+	font-weight: 1000;
+	font-size:16pt;
+	color: var(--principal) !important;
+	text-align: center;
+}
+
+.button:hover {
+	cursor: pointer;
+	background-color: var(--grey);
+	text-decoration: none;
+}
+
+.button:active{
+	background-color: var(--grey);
+}
+
+/*.modal-full {
+	min-width: 100%;
+    margin: 0 0 0 0;
+}
+
+.modal-full .modal-content {
+    min-height: 100vh;
+}*/
+
+.modal-dialog {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.modal-content {
+  height: auto;
+  min-height: 100%;
+  width: 100%!important;
+  border-radius: 0;
+}
+
+.modal-content{
+	border: 0!important;
+	border-radius: 0!important;
+	height: 100%;
+}
+
+.modal-numero{
+	background-color: var(--principal);
+	height: 100%;
+}
+
+.modal-numero .d-flex {
+	height: 100%;
+}
+
+.modal-body {
+	padding: 0!important;
+}
+
+.bingol-container {
+	height: 100%;
+}
+
+.bingol-footer {
+	font-family: Roboto, 'Trebuchet MS', 'sans-serif';
+	color: #ffffff;
+	text-transform: uppercase;
+	font-size: 16pt;
+}
+
+.footer {
+	margin-bottom: 50px;
+}
+
+.buttons .button{
+	margin-top: 5px!important;
+}
+
+.bingol-numero{
+	font-size: 12rem;
+	font-family: Roboto, 'Trebuchet MS', 'sans-serif';
+	color: #FFF;
+}
+
+.bingol-cell { 
+	width 			: 50px;
+	border 			: 0;
+	border-bottom 	: 2px solid black;
+	background-color: transparent;
+	text-align 		: center;
+	font-size 		: 20pt;
+}
+
+.bingol-success {
+	border-bottom 	: 2px solid green;
+}
+
+.bingol-error {
+	border-bottom 	: 2px solid red !important;
+}
+
+
+.bingol-cell:focus { 
+	border-bottom: 2px solid green;
+}
+
+.bingol-x { 
+	width 			 : 50px;
+	text-align 		 : center;
+	font-size 		 : 20pt;
+}
+
+.btn-validar {
+	color: #FFF;
+}
+
+.numerinho {
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+#modalGanhou {
+	background-color: green;
+}
+
+.btnHide {
+	background-image: url('../img/btnHide.png');
+	width: 31px;
+	height: 12px;
+	display: block;
+	cursor: pointer;
+}
+
+.top-icons{
+	margin-top: 15px;
+	margin-right: 15px;
+	clear: right;
+	float: right;
+	cursor: pointer;
+}
+/*
+.fuller-body .icon {
+	display: flex;
+	float: right;
+}*/
+
+.fuller-modal {
+	/*padding: 100%;*/
+}
+
+.fuller-body {
+	/*padding: 100%;*/
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	display: table;
+  	position: absolute;
+  	cursor: pointer;
+}
+
+.active {
+	display: block;
+}
+
+.bg-default {
+	background-color: #778beb;
+}
+
+#ball-container {
+	display: table-cell;
+  	vertical-align: middle;
+	font-size: 12em;
+}
+
+.text-default {
+	color: #63cdda;
+}
+
+.fuller-head {
+	height: 50px;
+}
+
+.unselectable {
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+
+	/*
+	Introduced in IE 10.
+	See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+	*/
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-user-drag: none; 
+	-khtml-user-drag: none; 
+	-moz-user-drag: none; 
+	-o-user-drag: none; 
+	user-drag: none;
+}
