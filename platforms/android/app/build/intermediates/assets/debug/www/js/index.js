@@ -15,11 +15,37 @@ var app = {
 
     // main function
     main: function () {
+
+        /**
+         * Define a altura máxima da página por meio do body e html
+         * @type {[type]}
+         */
+        var body = document.body,
+        html = document.documentElement;
+        var altura = Math.max( body.scrollHeight, body.offsetHeight, 
+                           html.clientHeight, html.scrollHeight, html.offsetHeight );
+        
+        /**
+         * Armazena os números que seram lançados
+         * ou que lançaram não lembro mais
+         * @type {Array}
+         */
         chubs = [];
+
+        /**
+         * Acho que armazena os números que saíram
+         * @type {Array}
+         */
         var numeros = [];
         var igual = false;
         var n;
         var stop = false;
+
+        /**
+         * Váriavel de controle para verificar se está movendo
+         * o modal ou não
+         * @type {Boolean}
+         */
         var moving = false;
 
         // vai criar uma nova instancia no localstorage toda vez
@@ -29,6 +55,11 @@ var app = {
 
         // Armazena a posição do mouse
         currentMousePos = { x: -1, y: -1 };
+
+        /**
+         * Armazena a posição inicial do touch
+         */
+        var startTouch = 0;
 
         $(document).on('touchmove', function(e) {
             currentMousePos.x = e.pageX;
@@ -40,11 +71,24 @@ var app = {
                 // agora que a putaria vai começar...
                 var height = $('.modal-dialog').height();
 
-                // Reduz em 10px?
-                $('#bingolModal').css('height', height - 20 + 'px');
-                console.log(height);
-            } else {
-                console.log('destrue');
+                // Caso a altura atual do modal seja maior que
+                // a metade da inicial do modal reduz o tamanho
+                // caso contrário da um close
+                if((altura / 6) < height) {
+                    if(startTouch < e.originalEvent.touches[0].clientY) {
+                        var diferencaMove = e.originalEvent.touches[0].clientY - startTouch;
+                        diferencaMove -= diferencaMove * 0.9;
+                        $('#bingolModal').css('height', height - diferencaMove + 'px');
+                        var marginAntiga = $('#bingolModal').css('margin-top');
+                        marginAntiga = parseFloat(marginAntiga.replace('px', ''));
+                        $('#bingolModal').css('margin-top', (marginAntiga + diferencaMove) + 'px');
+                        // $('#bingolModal').css('margin-top', (height + diferencaMove) + 'px');
+                    }
+                } else {
+
+                    // Reseta o heigth ao fechar o modal
+                    $('#bingolModal').modal('hide');
+                }
             }
         }).mouseup(function (e) {
             moving = false;
@@ -78,14 +122,25 @@ var app = {
             intervalo = null;
 
             // Versão 2 genial...
+            // ou quase genial...
             $(".btnHideContainer").on('touchmove', function(e) {
-                // if(e.which === 1) {
-                    moving = true;
-                // } else {
-                    // moving = false;
-                // }
+                
+                // Caso seja um movimento inicial
+                // armazena a primeira posição porra
+                if(!moving) {
+
+                    // Armazena o y de quando começa o movimento
+                    startTouch = e.originalEvent.touches[0].clientY;
+                }
+
+                moving = true;
+                inicial = $('#bingolModal').height();
             }).on('touchend', function (e) {
                 moving = false;
+
+                // Restaura o modal caso pare de mover
+                $('#bingolModal').css('height', '');
+                $('#bingolModal').css('margin-top', '');
             })
         });
 
@@ -124,6 +179,7 @@ var app = {
                 };
             }
         }
+
         /**
         *   Retorna um valor do array de numeros
         *   e remove esse valor retornando o numero tirado
@@ -264,7 +320,6 @@ var app = {
                     }
                 }
             }
-
         }
 
         /**
@@ -280,4 +335,5 @@ var app = {
     }
 }
 
+// Inicia a aplicação
 app.initialize();

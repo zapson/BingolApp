@@ -142,6 +142,56 @@ var app = {
                 $('#bingolModal').css('height', '');
                 $('#bingolModal').css('margin-top', '');
             })
+
+            $('.btnCimaContainer').click(function () {
+                $('.modal-numero').find('.align-items-center').removeClass('align-items-center');
+                $('.btnHideContainer').html('<div class="d-flex p-2 justify-content-center"><a class="btnBaixoContainer align-self-center"><img src="img/btnBaixo.png"></a></div>');
+                $('.btnHideContainer').append('<div class="d-flex p-2 numeros-lancados flex-wrap"></div>');
+
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $('.bingol-numero').hide();
+                $('.bingol-footer').hide();
+
+                $('.btnBaixoContainer').click(function () {
+                    $('.bingol-footer').show();
+                    $('.btnHideContainer').html('<span class="btnHide" draggable="false"></span>');
+                    $('.bingol-numero').show();
+                    $('.btnHideContainer').parent().addClass('align-items-center');
+                })
+            })
+
+            $('.btnBaixoContainer').click(function () {
+                $('.bingol-footer').show();
+            })
         });
 
         /** Função para retirar um numero */
