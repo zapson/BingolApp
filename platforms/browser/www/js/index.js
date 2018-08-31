@@ -96,11 +96,31 @@ var app = {
 
         $(function () {
 
-            $(document).keypress(function (e) {
-                if(e.charCode === 32){
-                    tirarBolinha();
+            /**
+             * Duplo clique no número para rodar a bolinha
+             */
+            var tapped=false
+            $(".bingol-numero").on("touchstart", function(e){
+                if(!tapped){ //if tap is not set, set up single tap
+                  tapped=setTimeout(function(){
+                      tapped=null
+                      //insert things you want to do when single tapped
+                  },300);   //wait 300ms then run single click code
+                } else {    //tapped within 300ms of last tap. double tap
+                  clearTimeout(tapped); //stop single tap callback
+                  tapped=null
+                  console.log('teste');
+                  //insert things you want to do when double tapped
+                  tirarBolinha();
                 }
+                e.preventDefault()
             });
+
+            // $(document).keypress(function (e) {
+            //     if(e.charCode === 32){
+            //         tirarBolinha();
+            //     }
+            // });
 
             // Preenche do 1 ao 75
             for (var i = 1; i <= 75; i++) {
@@ -148,36 +168,10 @@ var app = {
                 $('.btnHideContainer').html('<div class="d-flex p-2 justify-content-center"><a class="btnBaixoContainer align-self-center"><img src="img/btnBaixo.png"></a></div>');
                 $('.btnHideContainer').append('<div class="d-flex p-2 numeros-lancados flex-wrap"></div>');
 
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
-                $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">1</a>');
+                $(numeros).each(function (index, value) {
+                    $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">' + value + '</a>');
+                });
+
                 $('.bingol-numero').hide();
                 $('.bingol-footer').hide();
 
@@ -196,6 +190,7 @@ var app = {
 
         /** Função para retirar um numero */
         function tirarBolinha(){
+            console.log('tirando a bolinha')
             if(!stop) {
                 if(numeros.length === 0){
                     stop = true;
@@ -205,21 +200,10 @@ var app = {
                 n = gerarNumero(numeros);
 
                 // Printa o numero que saiu na tela
-                $('.fuller-modal').addClass('active');
-                $('#ball-container').html(n);
+                $('.bingol-numero').html(n);
                 chubs.push(n);
                 localStorage.setItem(entry, JSON.stringify(chubs));
                 atualizaNumeros(n);
-
-                /** Fecha o fuller */
-                $('#btnClose').click(function () {
-                    console.log('clico');
-                    $('.fuller-modal').removeClass('active');
-                })
-
-                $('#ball-container').click(function () {
-                    tirarBolinha();
-                })
 
                 $.fn.disableSelection = function() {
                     return this

@@ -46,7 +46,31 @@ body {
 .button {
 	display: block;
 	text-transform: uppercase;
-	font-weight: 400;
+	/*font-weight: 400;*/
+	width: 16rem;
+	background-color: #FFF;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: .375rem .23rem;
+    font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .30rem;
+	font-family: Roboto, 'Trebuchet MS', 'sans-serif';
+	font-weight: 1000;
+	font-size:16pt;
+	color: var(--principal) !important;
+	text-align: center;
+}
+
+.button-numero-lancado {
+	/*display: block;*/
+	text-transform: uppercase;
+	/*font-weight: 400;*/
 	width: 16rem;
 	background-color: #FFF;
 	text-align: center;
@@ -262,3 +286,14 @@ body {
 	-o-user-drag: none; 
 	user-drag: none;
 }
+
+/*.btn-numero-lancado {
+	background-color: #FFFFFF;
+	text-transform: uppercase;
+	font-weight: 400;
+	color: #778beb;
+}
+
+.btn-numero-lancado:hover {
+	background-color: #e9e9e9;
+}*/
