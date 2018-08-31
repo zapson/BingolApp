@@ -20,9 +20,9 @@ var app = {
          * Define a altura máxima da página por meio do body e html
          * @type {[type]}
          */
-        var body = document.body,
-        html = document.documentElement;
-        var altura = Math.max( body.scrollHeight, body.offsetHeight, 
+        var body    = document.body,
+        html        = document.documentElement;
+        var altura  = Math.max( body.scrollHeight, body.offsetHeight, 
                            html.clientHeight, html.scrollHeight, html.offsetHeight );
         
         /**
@@ -94,12 +94,15 @@ var app = {
             moving = false;
         });
 
+        /** Indica se é já há um jogo ocorrendo para iniciar um novo */
+        var jogoIniciado = false;
+
         $(function () {
 
             /**
              * Duplo clique no número para rodar a bolinha
              */
-            var tapped=false
+            var tapped=false;
             $(".bingol-numero").on("touchstart", function(e){
                 if(!tapped){ //if tap is not set, set up single tap
                   tapped=setTimeout(function(){
@@ -109,9 +112,20 @@ var app = {
                 } else {    //tapped within 300ms of last tap. double tap
                   clearTimeout(tapped); //stop single tap callback
                   tapped=null
-                  console.log('teste');
+                  // console.log('teste');
                   //insert things you want to do when double tapped
+                  jogoIniciado = true;
                   tirarBolinha();
+
+                  // Muda os botões
+                  var button1 = '<a href="#bingolModal" role="button" data-toggle="modal" class="button"> Continuar </a>';
+                  var button2 = '<a id="iniciarNovoJogo" href="#bingolModal" role="button" data-toggle="modal" class="button"> Novo </a>';
+                  $('.buttons').html(button1 + button2);
+
+                  // Evento de clique de novo jogo
+                  $('#iniciarNovoJogo').click(function () {
+                      iniciarNovoJogo();
+                  })
                 }
                 e.preventDefault()
             });
@@ -126,10 +140,6 @@ var app = {
             for (var i = 1; i <= 75; i++) {
                 numeros.push(i);
             }
-
-            $('#btnRoda').click(function(e){
-                tirarBolinha();
-            });
 
             $('#btnBingo').click(function () {
                 checaCaracter();
@@ -163,13 +173,14 @@ var app = {
                 $('#bingolModal').css('margin-top', '');
             })
 
+            /** Tela dos números já lançados */
             $('.btnCimaContainer').click(function () {
                 $('.modal-numero').find('.align-items-center').removeClass('align-items-center');
                 $('.btnHideContainer').html('<div class="d-flex p-2 justify-content-center"><a class="btnBaixoContainer align-self-center"><img src="img/btnBaixo.png"></a></div>');
                 $('.btnHideContainer').append('<div class="d-flex p-2 numeros-lancados flex-wrap"></div>');
 
-                $(numeros).each(function (index, value) {
-                    $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 25px;">' + value + '</a>');
+                $(chubs).each(function (index, value) {
+                    $('.numeros-lancados').append('<a class="button-numero-lancado" style="margin: 10px 10px 10px 10px; width: 33px;">' + value + '</a>');
                 });
 
                 $('.bingol-numero').hide();
@@ -184,13 +195,13 @@ var app = {
             })
 
             $('.btnBaixoContainer').click(function () {
-                $('.bingol-footer').showa();
+                $('.bingol-footer').show();
             })
         });
 
         /** Função para retirar um numero */
         function tirarBolinha(){
-            console.log('tirando a bolinha')
+            // console.log('tirando a bolinha')
             if(!stop) {
                 if(numeros.length === 0){
                     stop = true;
@@ -203,7 +214,7 @@ var app = {
                 $('.bingol-numero').html(n);
                 chubs.push(n);
                 localStorage.setItem(entry, JSON.stringify(chubs));
-                atualizaNumeros(n);
+                // atualizaNumeros(n);
 
                 $.fn.disableSelection = function() {
                     return this
@@ -228,144 +239,165 @@ var app = {
             return numero;
         }
 
+        /** Evento de iniciar novo jogo */
+        function iniciarNovoJogo() {
+
+            // Reseta os números
+            numeros = []; 
+            
+            // Preenche do 1 ao 75
+            for (var i = 1; i <= 75; i++) {
+                numeros.push(i);
+            }
+
+            // Reseta os números já lançados
+            chubs = [];
+
+            // Reseta os números lançados
+            $('.numeros-lancados').html('');
+
+            // Reseta o texto
+            $('.bingol-numero').html('<span style="font-size: 20pt;">Clique duplo para iniciar</span>');
+        }
+
         /**
          * Verifica se na cartela do bingo já atingiu o máximo de caracteres e
          * pula para o próximo!
          */
-        function checaCaracter() {
+        // function checaCaracter() {
             
-            var cells = $('.bingol-cell').keydown(function (e) {
-                // console.log(window.getSelection);
-                // Caso seja diferente de teclas de apagar ou TAB
-                if(e.keyCode !== 8 && e.keyCode !== 46 && e.keyCode !== 9){
-                    if($(this).val().length == 2) {
-                        var nextCell = cells.get(cells.index(this) + 1);
-                        if(nextCell){
-                            nextCell.focus();
-                        } else {
-                            nextCell = cells.get(cells.index(this) + 2);
-                            if(nextCell){
-                                nextCell.focus();
-                            }
-                        }
-                    }
-                }
-            })
-        }
+        //     var cells = $('.bingol-cell').keydown(function (e) {
+        //         // console.log(window.getSelection);
+        //         // Caso seja diferente de teclas de apagar ou TAB
+        //         if(e.keyCode !== 8 && e.keyCode !== 46 && e.keyCode !== 9){
+        //             if($(this).val().length == 2) {
+        //                 var nextCell = cells.get(cells.index(this) + 1);
+        //                 if(nextCell){
+        //                     nextCell.focus();
+        //                 } else {
+        //                     nextCell = cells.get(cells.index(this) + 2);
+        //                     if(nextCell){
+        //                         nextCell.focus();
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     })
+        // }
 
         /**
          * Valida se todos os numeros lançados correspondem
          * a cartela indicada nos campos
          */
-        function validarCampos() {
-            $('.bingol-cells').find('input').removeClass('bingol-success');
-            $('.bingol-cells').find('input').removeClass('bingol-error');
-            /**
-             * Armazena os números marcados da cartela
-             * já preenchida
-             * @type {Array}
-             */
-            var campos = [];
+        // function validarCampos() {
+        //     $('.bingol-cells').find('input').removeClass('bingol-success');
+        //     $('.bingol-cells').find('input').removeClass('bingol-error');
+        //     /**
+        //      * Armazena os números marcados da cartela
+        //      * já preenchida
+        //      * @type {Array}
+        //      */
+        //     var campos = [];
 
-            /**
-             * Variável de controle quando um número 
-             * está errado
-             */
-            var erro = { 
-                        i:null,
-                        valor:null 
-                        };
+        //     /**
+        //      * Variável de controle quando um número 
+        //      * está errado
+        //      */
+        //     var erro = { 
+        //                 i:null,
+        //                 valor:null 
+        //                 };
 
-            /**
-             * Array para conter todos os erros
-             */
-            var erros = [];
+        //     /**
+        //      * Array para conter todos os erros
+        //      */
+        //     var erros = [];
 
-            /**
-             * Variável de controle para pular a iteração
-             */
-            var skip = false;
+        //     /**
+        //      * Variável de controle para pular a iteração
+        //      */
+        //     var skip = false;
 
-            /**
-             * Variável de controle para pular todas as iterações
-             */
-            var skipAll = false;
+        //     /**
+        //      * Variável de controle para pular todas as iterações
+        //      */
+        //     var skipAll = false;
 
-            var verdadeiro = false;
+        //     var verdadeiro = false;
 
-            /**
-             * Percorre todas os campos da cartela
-             * armazenando no vetor campos
-             * @param  {int} index   da célula
-             */
-            $('.bingol-cell').each(function (index, celula) {
-                campos.push($(celula));
-            });
+        //     /**
+        //      * Percorre todas os campos da cartela
+        //      * armazenando no vetor campos
+        //      * @param  {int} index   da célula
+        //      */
+        //     $('.bingol-cell').each(function (index, celula) {
+        //         campos.push($(celula));
+        //     });
 
-            $(campos).each(function (indexCampo, campo) {
-                verdadeiro = false;
-                $(chubs).each(function (indexChubs, chub) {
+        //     $(campos).each(function (indexCampo, campo) {
+        //         verdadeiro = false;
+        //         $(chubs).each(function (indexChubs, chub) {
 
-                    // Verifica se é igual a algum elemento
-                    // presente em chubs e se o campo n eh verdade
-                    if(verdadeiro == false){
-                        if($(campo).val() == chub){
+        //             // Verifica se é igual a algum elemento
+        //             // presente em chubs e se o campo n eh verdade
+        //             if(verdadeiro == false){
+        //                 if($(campo).val() == chub){
 
-                            // Diz que o campo é verdadeiro
-                            verdadeiro = true;
-                        } else {
-                            if(indexChubs == chubs.length - 1){
-                                    erros.push({i:indexCampo, valor:$(campo).val()});
-                            }
-                        }
-                    }
-                })
-            })
+        //                     // Diz que o campo é verdadeiro
+        //                     verdadeiro = true;
+        //                 } else {
+        //                     if(indexChubs == chubs.length - 1){
+        //                             erros.push({i:indexCampo, valor:$(campo).val()});
+        //                     }
+        //                 }
+        //             }
+        //         })
+        //     })
 
-            if(erros.length !==  0) {
-                $('.bingol-cells').find('input').addClass('bingol-success');
+        //     if(erros.length !==  0) {
+        //         $('.bingol-cells').find('input').addClass('bingol-success');
 
-                $(erros).each(function (index, erro) {
-                    $('.bingol-cells').find('#'+erro.i).removeClass('bingol-success');
-                    $('.bingol-cells').find('#'+erro.i).addClass('bingol-error');
-                });
-            } else {
-                stop = false;
-                var audio = new Audio('assets/audio/tetra.mp3');
-                $('.bingol-cells').find('input').addClass('bingol-success');
-                $('#modalGanhou').modal('show');
+        //         $(erros).each(function (index, erro) {
+        //             $('.bingol-cells').find('#'+erro.i).removeClass('bingol-success');
+        //             $('.bingol-cells').find('#'+erro.i).addClass('bingol-error');
+        //         });
+        //     } else {
+        //         stop = false;
+        //         var audio = new Audio('assets/audio/tetra.mp3');
+        //         $('.bingol-cells').find('input').addClass('bingol-success');
+        //         $('#modalGanhou').modal('show');
 
-                $('#modalGanhou').on('hidden.bs.modal', function (e) {
-                    stop = true;
-                });
+        //         $('#modalGanhou').on('hidden.bs.modal', function (e) {
+        //             stop = true;
+        //         });
 
-                $('#modalGanhou').on('shown.bs.modal', function (e) {
-                    audio.play();
-                    fade();
-                });
+        //         $('#modalGanhou').on('shown.bs.modal', function (e) {
+        //             audio.play();
+        //             fade();
+        //         });
 
-                function fade() {
-                    if(!stop){
-                        $('#modalGanhou').fadeTo(600, 0.1, function () {
-                            if(!stop){
-                                $('#modalGanhou').fadeTo(600, 1.0 , fade($('#modalGanhou')));
-                            }
-                        });
-                    }
-                }
-            }
-        }
+        //         function fade() {
+        //             if(!stop){
+        //                 $('#modalGanhou').fadeTo(600, 0.1, function () {
+        //                     if(!stop){
+        //                         $('#modalGanhou').fadeTo(600, 1.0 , fade($('#modalGanhou')));
+        //                     }
+        //                 });
+        //             }
+        //         }
+        //     }
+        // }
 
         /**
          * Função para mostrar os numeros que já sairam
          * na tela de jogar
          * @param  Array numeros que já foram
          */
-        function atualizaNumeros(numeros) {
-            $(numeros).each(function (index, value) {
-                $('#numerosForam').append('<span class="btn btn-success numerinho">' + value + '</span>')
-            });
-        }
+        // function atualizaNumeros(numeros) {
+        //     $(numeros).each(function (index, value) {
+        //         $('#numerosForam').append('<span class="btn btn-success numerinho">' + value + '</span>')
+        //     });
+        // }
     }
 }
 
