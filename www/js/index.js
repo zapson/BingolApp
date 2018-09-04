@@ -98,6 +98,7 @@ var app = {
         var jogoIniciado = false;
 
         $(function () {
+            $('.modal-numero').css("height", "100%");
 
             /**
              * Duplo clique no número para rodar a bolinha
@@ -175,6 +176,7 @@ var app = {
 
             /** Tela dos números já lançados */
             $('.btnCimaContainer').click(function () {
+                $('.modal-numero').css("height", "");
                 $('.modal-numero').find('.align-items-center').removeClass('align-items-center');
                 $('.btnHideContainer').html('<div class="d-flex p-2 justify-content-center"><a class="btnBaixoContainer align-self-center"><img src="img/btnBaixo.png"></a></div>');
                 $('.btnHideContainer').append('<div class="d-flex p-2 numeros-lancados flex-wrap"></div>');
@@ -187,6 +189,7 @@ var app = {
                 $('.bingol-footer').hide();
 
                 $('.btnBaixoContainer').click(function () {
+                    $('.modal-numero').css("height", "100%");
                     $('.bingol-footer').show();
                     $('.btnHideContainer').html('<span class="btnHide" draggable="false"></span>');
                     $('.bingol-numero').show();
